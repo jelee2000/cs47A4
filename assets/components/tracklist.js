@@ -1,19 +1,24 @@
 import { StyleSheet, FlatList, Image, Text, View } from "react-native";
 import { Themes, Images } from "../Themes";
 import SongItem from "./song";
+import { Ionicons } from '@expo/vector-icons';
+import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 
-const renderSongItem = ({item, index}) => ( //imageurl, title, artist, albumname, duration
+const renderSongItem = ({item, index}, navigation) => ( //imageurl, title, artist, albumname, duration
     <SongItem
-        index = {index + 1}
+        //trackNum = {index + 1}
+        navigation = {navigation}
         imageurl = {item.album.images[0].url}
         title = {item.name}
         artist = {item.artists[0].name} 
         albumname = {item.album.name}
         duration = {item.duration_ms}
-    />
+        externalURL = {item.external_urls.spotify}
+        previewURL = {item.preview_url}
+      />
 )
 
-export default function Tracklist( {tracks} ) {
+export default function Tracklist( {tracks, navigation} ) {
 
   return ( 
     <View style = {styles.container}> 
@@ -23,10 +28,7 @@ export default function Tracklist( {tracks} ) {
           </View>
           <FlatList
               data = {tracks}
-              contentContainerStyle={{
-                flexGrow: 1,
-                }}
-              renderItem={(item) => renderSongItem(item)}  
+              renderItem={(params) => renderSongItem(params, navigation)}  
               keyExtractor={(_, index) => index} 
           />
       </View>

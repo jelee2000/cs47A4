@@ -1,15 +1,18 @@
-import { StyleSheet, View, Image, Dimensions, Text } from "react-native";
+import { StyleSheet, View, Image, Dimensions, Text, Pressable } from "react-native";
 import { getFontSize, millisToMinutesAndSeconds } from "../../utils";
+import { Ionicons } from '@expo/vector-icons';
 
 const fontSize = getFontSize()
 
-export default function SongItem( {imageurl, title, artist, albumname, duration, index} ) {
+export default function SongItem( {imageurl, title, artist, albumname, duration, previewURL, externalURL, navigation} ) {
     const songlength = millisToMinutesAndSeconds(duration);  
     return (
-        <View style = {styles.item}>
-            <View style = {styles.tracklistNum}> 
-                <Text style = {styles.tracklistText}>{index}</Text> 
-            </View>
+        <Pressable onPress = { () => {navigation.navigate('Song Details', {externalURL: externalURL})} }
+            style = {styles.item}>
+            <Pressable onPress = {() => {navigation.navigate('Preview Screen', {previewURL: previewURL})}}
+            style = {styles.tracklistNum}> 
+                <Ionicons name = "play-circle" color = "green" size = {windowWidth * .05}/> 
+            </Pressable>
             <View>
                 <Image style = {styles.image} source = {{uri: imageurl}}/>
             </View>
@@ -23,7 +26,7 @@ export default function SongItem( {imageurl, title, artist, albumname, duration,
             <View style = {styles.durationStyle}>
                 <Text style = {{color: 'white', fontSize: fontSize, alignItems: 'flex-end'}}>{songlength}</Text>
             </View>
-        </View>
+        </Pressable>
     )
 }
 const windowWidth = Dimensions.get('window').width;

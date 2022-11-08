@@ -14,7 +14,6 @@ export default function Authbutton( {getSpotifyAuth} ) {
     </Pressable>
   );
 }
-// make text componennt inside the pressable 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Themes.colors.spotify,
@@ -23,17 +22,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     paddingHorizontal: 10,
     paddingVertical: 10,
-    //flex: 1,
     borderRadius: 99999,
   },
   image: {
     borderRadius: 99999,
     height: windowWidth * 0.1,
     width: windowWidth * 0.1,
-    //height: 25,
-    //width: 25,
-    //resizeMode: 'contain'
-    // dimensions object 
   },
   text: {
     fontSize: fontSize,
